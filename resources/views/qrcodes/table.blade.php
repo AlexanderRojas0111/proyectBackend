@@ -23,7 +23,7 @@
                     <td>{{ $qrcode->company_name }}</td>
                     <td>{{ $qrcode->product_name }}</td>
                     <td><a href="{{ $qrcode->product_url }}" target="_blank">{{ $qrcode->product_url }}</a></td>
-                    <td><img src="{{asset($qrcode->product_url_image_path)}}" style="width: 50px;" ></td>
+                    <td><img src="{{asset($qrcode->product_url_image_path)}}"  ></td> {{--style="width: 100%;"--}}
                     <td><a href="{{ $qrcode->callback_url }}" target="_blank">{{ $qrcode->callback_url }}</a></td>
                     <td><img src="{{asset($qrcode->qrcode_path)}}"></td>
                     <td>{{ $qrcode->amount }}</td>
