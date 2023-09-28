@@ -16,3 +16,33 @@
     <p>{{ $roles->updated_at }}</p>
 </div>
 
+<h1>USUARIOS {{ $roles->name }}</h1>
+
+
+<div class="col-sm-12 table table-striped">
+    <table>
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach ($roles->users as $user)
+            <tr>
+                <td>
+                    <a href="../users/{{$user->id}}">{{$user->id}}</a>
+                </td>
+                <td>{{ $user->name}}</td>
+                <td>{{ $user->email}}</td>
+            </tr>
+        @endforeach
+
+        </tbody>
+    </table>
+</div>
+
+
+
+

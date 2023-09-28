@@ -13,6 +13,8 @@
 <div class="form-group col-sm-6">
     {!! Form::label('qrcode_id', 'Qrcode Id:') !!}
     {!! Form::number('qrcode_id', null, ['class' => 'form-control', 'required']) !!}
+
+
 </div>
 
 <!-- Payment Method Field -->

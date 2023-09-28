@@ -1,7 +1,9 @@
 <!-- User Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('user_id', 'User Id:') !!}
-    <p>{{ $qrcode->user_id }}</p>
+    {!! Form::label('user_id', 'PROPIETARIO DEL PRODUCTO') !!}
+    <p>
+    <a href="../users/{{ $qrcode->user['id'] }}" class='btn btn-outline-info'>{{ $qrcode->user['name'] }}</a>
+    </p>
 </div>
 
 <!-- Website Field -->
@@ -60,3 +62,46 @@
     <p>{{ $qrcode->amount }}</p>
 </div>
 
+<H1>TRANSACCIONES DE ESTE PRODUCTO</H1>
+<div class="col-sm-12 table table-striped">
+    <table>
+        <thead class="thead-dark">
+            <tr>
+                <th>transactions Id</th>
+                <th>amount</th>
+                <th>payment_method</th>
+                <th>status</th>
+                <th>usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+                $totalAmount = 0; // Inicializamos el total en 0
+            @endphp
+            @foreach ($qrcode->transactions as $transaction)
+                @php
+                    $totalAmount += $transaction->amount; // Sumamos el monto de cada transacción al total
+                @endphp
+                <tr>
+                    <td>
+                        <a href="../transactions/{{ $transaction->id }}">{{ $transaction->id }}</a>
+                    </td>
+                    <td>${{ $transaction->amount }}</td>
+                    <td>{{ $transaction->payment_method }}</td>
+                    <td>{{ $transaction->status }}</td>
+                    <td>
+                        <a href="../users/{{ $transaction->user['id'] }}">{{ $transaction->user['name'] }}</a>
+                    </td>
+
+
+                </tr>
+            @endforeach
+            <tr>
+                <td colspan="2"></td> <!-- Colspan para las tres primeras columnas vacías -->
+                <td><h3>Total:</h3> 
+                    <h4>${{ number_format($totalAmount, 2) }}</h4></td> <!-- Formateamos $totalAmount como dinero con 2 decimales -->
+                <td></td> <!-- Dejamos la última columna vacía -->
+            </tr>
+        </tbody>
+    </table>
+</div>

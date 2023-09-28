@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 /**
  * @OA\Schema(
  *      schema="User",
- *      required={"name","email","password"},
+ *      required={"roles_id","name","email","password"},
  *      @OA\Property(
  *          property="name",
  *          description="",
@@ -69,6 +69,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     public $table = 'users';
 
     public $fillable = [
+        'roles_id',
         'name',
         'email',
         'email_verified_at',
@@ -85,6 +86,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     ];
 
     public static array $rules = [
+        'roles_id' => 'required',
         'name' => 'required|string|max:255',
         'email' => 'required|string|max:255',
         'email_verified_at' => 'nullable',
@@ -97,6 +99,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     public function getAuthIdentifierName()
      {
          return 'id'; // Puedes cambiar 'id' al nombre de la columna que se utiliza como identificador en tu tabla de usuarios.
+     }
+
+     public function getRolesId()
+     {
+         return 'roles_id'; // 
      }
  
      public function getAuthIdentifier()
@@ -113,7 +120,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
      {
          return $this->remember_token;
      }
- 
+     
+     public function setRolesId($value)
+     {
+         $this->roles_id = $value;
+     }
+
      public function setRememberToken($value)
      {
          $this->remember_token = $value;
@@ -136,5 +148,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
         return $this->hasMany(Transaction::class);
     }
 
+    public function roles(): BelongsTo
+    {
+        return $this->belongsTo(Roles::class);
+    }
     
+    public function qrcodes(): HasMany
+    {
+        return $this->hasMany(Qrcode::class);
+    }
 }

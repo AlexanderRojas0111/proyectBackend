@@ -3,7 +3,7 @@
         <table class="table" id="qrcodes-table">
             <thead>
             <tr>
-                <th>User Id</th>
+                <th>Propietario del Producto</th>
                 <th>Website</th>
                 <th>Company Name</th>
                 <th>Product Name</th>
@@ -18,13 +18,15 @@
             <tbody>
             @foreach($qrcodes as $qrcode)
                 <tr>
-                    <td>{{ $qrcode->user_id }}</td>
-                    <td><a href="{{ $qrcode->website }}" target="_blank">{{ $qrcode->website }}</a></td>
+                    <td>
+                        <a href="../users/{{ $qrcode->user['id'] }}" class='btn btn-outline-info'>{{ $qrcode->user['name'] }}</a>
+                    </td>
+                    <td><a href="{{ $qrcode->website }}" target="_blank" class='btn btn-outline-info'>{{ $qrcode->website }}</a></td>
                     <td>{{ $qrcode->company_name }}</td>
                     <td>{{ $qrcode->product_name }}</td>
-                    <td><a href="{{ $qrcode->product_url }}" target="_blank">{{ $qrcode->product_url }}</a></td>
+                    <td><a href="{{ $qrcode->product_url }}" target="_blank" class='btn btn-outline-info'>{{ $qrcode->product_url }}</a></td>
                     <td><img src="{{asset($qrcode->product_url_image_path)}}"  ></td> {{--style="width: 100%;"--}}
-                    <td><a href="{{ $qrcode->callback_url }}" target="_blank">{{ $qrcode->callback_url }}</a></td>
+                    <td><a href="{{ $qrcode->callback_url }}" target="_blank" class='btn btn-outline-info'>{{ $qrcode->callback_url }}</a></td>
                     <td><img src="{{asset($qrcode->qrcode_path)}}"></td>
                     <td>{{ $qrcode->amount }}</td>
                     <td  style="width: 120px">
