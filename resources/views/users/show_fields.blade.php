@@ -1,7 +1,15 @@
 <!-- Roles Id Field -->
 <div class="col-sm-12">
-    {!! Form::label('roles_id', 'Roles Id:') !!}
-    <p>{{ $user->roles_id }}</p>
+    {!! Form::label('roles_id', 'Rol de este Usuario:') !!}
+    <p>
+
+    <a href="{{ route('roles.show', $user->roles['id']) }}"
+                               class='btn btn-outline-info'>
+                               {{$user->roles['name']}}
+                            </a>
+    </p>
+
+    
 </div>
 
 <!-- Name Field -->
@@ -72,6 +80,44 @@
                     <h4>${{ number_format($totalAmount, 2) }}</h4></td> <!-- Formateamos $totalAmount como dinero con 2 decimales -->
                 <td></td> <!-- Dejamos la última columna vacía -->
             </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<H1>PRODUCTOS DE ESTE USUARIO</H1>
+<div class="col-sm-12 table table-striped">
+    <table>
+        <thead class="thead-dark">
+            <tr>
+                <th>Producto Id</th>
+                <th>Producto</th>
+                <th>amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @php
+                $totalAmount = 0; // Inicializamos el total en 0
+            @endphp
+            @foreach ($user->qrcodes as $qrcode)
+                
+                <tr>
+                    <td>
+                    <a href="../qrcodes/{{$qrcode->id}}">{{ $qrcode->id }}</a>    
+                    </td>
+                    <td>
+                    <strong><a href="../qrcodes/{{$qrcode->id}}">{{$qrcode->product_name }}</a></strong>                 
+
+                    <img src="../{{$qrcode->product_url_image_path}}" alt="{{ $qrcode->product_name }}">
+
+                    
+
+                       
+                    </td>
+                    <td>{{ $qrcode->amount }}</td>
+                   
+            @endforeach
+            
         </tbody>
     </table>
 </div>

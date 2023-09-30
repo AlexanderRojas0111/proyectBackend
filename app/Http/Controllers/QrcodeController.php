@@ -158,7 +158,8 @@ class QrcodeController extends AppBaseController
             $extensionOriginal = $archivo->getClientOriginalExtension();
             $id_usuario= $qrcode->id;
             $id_producto = uniqid() ;
-            $fileName = "{$id_usuario}_{$id_producto }_{$nombreOriginal}";
+            //$fileName = "{$id_usuario}_{$id_producto }_{$nombreOriginal}";
+            $fileName = "{$id_usuario}_{$nombreOriginal}";
 
             $archivo->move(public_path('selected_product_Images'), $fileName);
 
